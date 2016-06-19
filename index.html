@@ -55,7 +55,7 @@
         <div class="col-sm-4">
           <!-- List of images from library -->
           <a data-toggle="modal" data-target="#{{ photo.public_id }}">
-            <cl-image public-id="{{ photo.public_id }}" class="thumbnail photo img-responsive" width="300" crop="fit" quality="80" fetch-format="auto" format="jpg"/>
+            <cl-image public-id="{{ photo.public_id }}" class="photo img-responsive" width="300" crop="fit" quality="80" fetch-format="auto" format="jpg"/>
           </a>
 
           <!-- Editor Modal -->
@@ -71,7 +71,7 @@
                   <div class="col-sm-6">
                     <h4>Crop Style: Crop</h4>
                     <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
-                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                      <cl-image public-id="{{ photo.public_id }}" class="centered img-responsive" format="jpg">
                         <cl-transformation width="300" crop="crop">
                       </cl-image> 
                     </a>
@@ -79,7 +79,7 @@
                   <div class="col-sm-6"> 
                     <h4>Crop Style: Scale</h4>
                     <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
-                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                      <cl-image public-id="{{ photo.public_id }}" class="centered img-responsive" format="jpg">
                         <cl-transformation width="300" crop="fit" radius="max">
                       </cl-image> 
                     </a>
@@ -87,7 +87,7 @@
                   <div class="col-sm-6"> 
                     <h4>Crop Style: Thumb, Gravity: Face</h4>
                     <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
-                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                      <cl-image public-id="{{ photo.public_id }}" class="centered img-responsive" format="jpg">
                         <cl-transformation width="300" crop="thumb" gravity="face">
                       </cl-image> 
                     </a>
@@ -95,7 +95,7 @@
                   <div class="col-sm-6"> 
                     <h4>Gravity: Face, Zoom:120%</h4>
                     <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
-                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                      <cl-image public-id="{{ photo.public_id }}" class="centered img-responsive" format="jpg">
                         <cl-transformation width="300" crop="thumb" gravity="face" zoom="1.3">
                       </cl-image> 
                     </a>
