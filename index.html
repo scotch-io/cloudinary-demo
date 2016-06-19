@@ -1,61 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cloudinary Demo</title>
+     <meta charset="UTF-8">
+  <title>Cloudinary Demo</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./app/style.css">
 
-    <!-- JS -->
-    <!-- libraries -->
-    <script src="./bower_components/lodash/lodash.min.js"></script>
-    <script src="./bower_components/angular/angular.min.js"></script>
-    <script src="./bower_components/cloudinary-core/cloudinary-core.min.js"></script>
-    <script src="./bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
-    <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <!-- JS -->
+  <!-- libraries -->
+  <script src="./bower_components/lodash/lodash.min.js"></script>
+  <script src="./bower_components/angular/angular.min.js"></script>
+  <script src="./bower_components/cloudinary-core/cloudinary-core.min.js"></script>
+  <script src="./bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
+  <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <script src="./bower_components/jquery/dist/jquery.min.js"></script>    
+  <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <!-- our custom angular -->
-    <script src="./app/main.controller.js"></script>
-    <script src="./app/app.js"></script>
-
+  <!-- our custom angular -->
+  <script src="./app/main.controller.js"></script>
+  <script src="./app/service.js"></script>    
+  <script src="./app/app.js"></script>
 </head>
 <body ng-app="app" ng-controller="MainController as main">
+   <!-- HEADER -->
+  <header>
+  <div class="navbar navbar-inverse">
+  <div class="container">
 
-    <!-- HEADER -->
-    <header>
-    <div class="navbar navbar-inverse">
-    <div class="container">
-
-        <div class="navbar-header">
-            <a href="/" class="navbar-brand">Cloudinary Demo</a>
-        </div>
-
+    <div class="navbar-header">
+      <a href="/" class="navbar-brand">Cloudinary Demo</a>
     </div>
+
+  </div>
+  </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+  <div class="container">
+
+    <div class="jumbotron text-center">
+      <h1>Upload a Photo</h1>
+      <button class="btn btn-lg btn-primary" ngf-select="main.uploadFiles($files)" multiple>
+        Select a file
+      </button>
     </div>
-    </header>
+    <div class="row text-center">
+      <div class="page-header" ng-if="main.photos.length == 0">
+        <h2>Library empty. Upload some photos to see magic.</h2>
+      </div>
+      <!-- Loop through and display uploaded images -->
+      <div ng-repeat="photo in main.photos | orderBy:'version':true">
+        <div class="col-sm-4">
+          <!-- List of images from library -->
+          <a data-toggle="modal" data-target="#{{ photo.public_id }}">
+            <cl-image public-id="{{ photo.public_id }}" class="thumbnail photo img-responsive" width="300" crop="fit" quality="80" fetch-format="auto" format="jpg"/>
+          </a>
 
-    <!-- MAIN CONTENT -->
-    <main>
-    <div class="container">
-
-        <div class="jumbotron text-center">
-            <h1>Uploooooad</h1>
-            <a href="#" class="btn btn-lg btn-primary">Upload</a>
-
-            <button class="btn btn-lg btn-primary"
-                ngf-select="main.uploadFiles($file)">
-                Upload on file select
-            </button>
-
-        </div>
-
-        {{ main.message }}
-
+          <!-- Editor Modal -->
+          <div class="modal fade" id="{{ photo.public_id }}" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title" id="myModalLabel">Image Variations</h3>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h4>Crop Style: Crop</h4>
+                    <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
+                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                        <cl-transformation width="300" crop="crop">
+                      </cl-image> 
+                    </a>
+                  </div>                               
+                  <div class="col-sm-6"> 
+                    <h4>Crop Style: Scale</h4>
+                    <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
+                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                        <cl-transformation width="300" crop="fit" radius="max">
+                      </cl-image> 
+                    </a>
+                  </div>
+                  <div class="col-sm-6"> 
+                    <h4>Crop Style: Thumb, Gravity: Face</h4>
+                    <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
+                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                        <cl-transformation width="300" crop="thumb" gravity="face">
+                      </cl-image> 
+                    </a>
+                  </div>
+                  <div class="col-sm-6"> 
+                    <h4>Gravity: Face, Zoom:120%</h4>
+                    <a cl-href="{{ photo.public_id }}" format="jpg" target="_blank">
+                      <cl-image public-id="{{ photo.public_id }}" class="thumbnail centered img-responsive" format="jpg">
+                        <cl-transformation width="300" crop="thumb" gravity="face" zoom="1.3">
+                      </cl-image> 
+                    </a>
+                  </div>  
+                </div>  
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+          </div>
+          <!-- End editor modal -->
+        </div> 
+      </div>
     </div>
-    </main>
-
-    <cl-image public-id="zaxhpwgzby6oqty8sqxi.jpg" width="365" height="133" crop="fill"/>
+  </div>
+  </main>
 
 </body>
 </html>

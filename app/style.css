@@ -1,0 +1,20 @@
+.photo {
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+}
+
+.display-image {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width:600px;
+}
+
+.jumbotron .btn {
+	margin: 15px 0;
+}
+
+.centered {
+	margin-left:auto;
+	margin-right:auto;
+}
